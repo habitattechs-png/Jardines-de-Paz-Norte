@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jardines de Paz – Solución con previsión</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Fondo con overlay */
+.background {
+  background-image: url('https://static.wixstatic.com/media/8b947f_b7bdca394a5144378fbc95284736522b~mv2.jpg/v1/fill/w_980,h_324,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/8b947f_b7bdca394a5144378fbc95284736522b~mv2.jpg');
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Overlay oscuro */
+.overlay {
+  background: rgba(0, 0, 0, 0.65);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Tarjeta principal */
+.card-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.card {
+  max-width: 380px;
+  width: 90%;
+  background: rgba(0,0,0,0.70);
+  border-radius: 12px;
+  padding: 42px 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(212,175,55,0.25);
+}
+
+.title {
+  font-family: 'Cinzel', serif;
+  color: #d4af37;
+  font-size: 26px;
+  letter-spacing: 4px;
+  margin-bottom: 14px;
+}
+
+.subtitle {
+  font-family: 'Cinzel', serif;
+  color: #d4af37;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #e2e2e2;
+  margin-bottom: 32px;
+}
+
+.info {
+  font-size: 14px;
+  color: #b0b0b0;
+  margin-bottom: 36px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 36px;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  background: rgba(212,175,55,0.05);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #d4af37;
+  color: #000;
+  box-shadow: 0 0 18px rgba(212,175,55,0.35);
+}
+
+.footer {
+  margin-top: 28px;
+  font-size: 12px;
+  color: #9c9c9c;
+}
+
+</style>
+</head>
+
+<body>
+
+  <div class="background"></div>
+  <div class="overlay"></div>
+
+  <div class="card-container">
+    <div class="card">
+
+      <div class="title">Jardines de Paz</div>
+
+      <div class="subtitle">Por quienes ya no están.</div>
+
+      <div class="message">
+        Pensar en estos momentos no es fácil.<br>
+        Cuando la vida sorprende, tener una decisión tomada  
+        evita carreras, angustia y decisiones apresuradas.<br><br>
+        Estamos para acompañarte de forma tranquila y respetuosa.
+      </div>
+
+      <div class="info">
+        Disponibilidad: 2 lotes<br>
+        Información confidencial
+      </div>
+
+      <a class="btn"
+         href="https://wa.me/573227002789?text=Hola%20Jose%20Jimy,%20deseo%20recibir%20información%20sobre%20la%20disponibilidad%20y%20el%20acompañamiento%20en%20Jardines%20de%20Paz.%20Gracias."
+         target="_blank">
+        Solicitar información
+      </a>
+
+      <div class="footer">
+        Acompañamiento y gestión personalizada<br>
+        Jose Jimy Guluma C.
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
