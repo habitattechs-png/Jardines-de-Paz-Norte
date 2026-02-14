@@ -3,151 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jardines de Paz – Solución con previsión</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<title>Jardines de Paz – Previsión Familiar 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Montserrat', sans-serif;
-}
+  :root {
+    --gold: #d4af37;
+    --gold-bright: #f1d592;
+    --dark-bg: rgba(10, 10, 10, 0.92); /* Un poco más sólido para contraste */
+  }
 
-/* Fondo con la nueva URL proporcionada (colores originales) */
-.background {
-  background-image: url('https://cementeriojardinesdelapaz.com/sites/default/files/2023-03/_DSF4839-44.jpg');
-  background-size: cover;
-  background-position: center;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
+  body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; overflow-x: hidden; }
 
-/* Tarjeta principal */
-.card-container {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  text-align: center;
-}
+  /* Fondo con mejor visibilidad */
+  .background {
+    background-image: url('https://cementeriojardinesdelapaz.com/sites/default/files/2023-03/_DSF4839-44.jpg');
+    background-size: cover; background-position: center; 
+    position: fixed; width: 100%; height: 100%; z-index: 1; 
+    filter: brightness(0.4) contrast(1.1);
+  }
 
-.card {
-  max-width: 380px;
-  width: 95%;
-  /* Fondo oscuro semitransparente para legibilidad */
-  background: rgba(0, 0, 0, 0.82); 
-  border-radius: 16px;
-  padding: 42px 30px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-}
+  .container { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 20px; animation: fadeIn 1s ease-out; }
 
-.title {
-  font-family: 'Cinzel', serif;
-  color: #d4af37;
-  font-size: 26px;
-  letter-spacing: 4px;
-  margin-bottom: 14px;
-}
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-.subtitle {
-  font-family: 'Cinzel', serif;
-  color: #d4af37;
-  font-size: 18px;
-  margin-bottom: 24px;
-}
+  .card {
+    max-width: 480px; width: 100%; 
+    background: var(--dark-bg);
+    backdrop-filter: blur(25px); /* Efecto cristal más fuerte */
+    border-radius: 28px; padding: 45px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    text-align: center;
+  }
 
-.message {
-  font-size: 15px;
-  line-height: 1.7;
-  color: #ffffff;
-  margin-bottom: 32px;
-}
+  .title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 26px; letter-spacing: 5px; margin-bottom: 5px; }
+  .tagline { font-size: 11px; letter-spacing: 3px; color: var(--gold-bright); text-transform: uppercase; margin-bottom: 35px; font-weight: 500; }
 
-.info {
-  font-size: 14px;
-  color: #d1d1d1;
-  margin-bottom: 36px;
-  font-weight: 400;
-}
+  .scenarios { display: flex; gap: 8px; margin-bottom: 30px; }
+  .btn-scen { 
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); 
+    color: #bbb; padding: 12px 5px; border-radius: 12px; font-size: 9px; 
+    cursor: pointer; transition: all 0.4s ease; flex: 1;
+    font-weight: 700; letter-spacing: 1px;
+  }
+  .btn-scen.active { border-color: var(--gold); color: #fff; background: rgba(212, 175, 55, 0.25); box-shadow: 0 0 15px rgba(212,175,55,0.2); }
 
-.btn {
-  display: inline-block;
-  padding: 16px 32px;
-  border-radius: 40px;
-  border: 2px solid #d4af37;
-  color: #d4af37;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
-  background: transparent;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
+  .main-price { font-size: 44px; font-weight: 700; color: #fff; margin-bottom: 25px; transition: 0.3s; }
+  .main-price span { font-size: 12px; color: var(--gold); display: block; letter-spacing: 2.5px; margin-bottom: 8px; font-weight: 600; }
 
-.btn:hover {
-  background: #d4af37;
-  color: #000;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-}
+  .details-box { background: rgba(255,255,255,0.05); border-radius: 18px; padding: 25px; text-align: left; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+  .line { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 12px; color: #f0f0f0; }
+  .line span:last-child { font-weight: 600; color: #fff; }
+  .total-line { border-top: 1px solid rgba(212, 175, 55, 0.4); padding-top: 15px; margin-top: 15px; color: var(--gold-bright); font-weight: 700; font-size: 20px; }
 
-.footer {
-  margin-top: 32px;
-  font-size: 13px;
-  color: #b0b0b0;
-  border-top: 1px solid rgba(212, 175, 55, 0.2);
-  padding-top: 20px;
-}
+  .btn-wa {
+    display: block; background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+    color: #000; padding: 20px; border-radius: 50px;
+    text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; 
+    transition: all 0.3s; box-shadow: 0 12px 24px rgba(184, 134, 11, 0.3);
+  }
+  .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 18px 35px rgba(212, 175, 55, 0.5); }
+
+  /* MEJORA DE VISIBILIDAD EN EL PIE DE PÁGINA */
+  .legal-disclaimer { 
+    font-size: 11px; 
+    color: #f0f0f0; /* Blanco humo para máxima legibilidad */
+    margin-top: 30px; 
+    line-height: 1.6; 
+    font-weight: 400; 
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.07); /* Fondo sutil para separar del resto */
+    border-radius: 12px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  }
+  .legal-disclaimer strong {
+    color: var(--gold-bright);
+    font-weight: 600;
+  }
+  .contact-footer { margin-top: 25px; font-size: 12px; color: #ccc; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-bottom: 10px; }
 
 </style>
 </head>
-
 <body>
 
-  <div class="background"></div>
+<div class="background"></div>
 
-  <div class="card-container">
-    <div class="card">
+<div class="container">
+  <div class="card">
+    <div class="title">Jardines de Paz</div>
+    <div class="tagline">Seguridad Patrimonial · Lote Doble</div>
 
-      <div class="title">Jardines de Paz</div>
+    <div class="scenarios">
+      <button class="btn-scen active" onclick="update(0)">PARA FUTURO</button>
+      <button class="btn-scen" onclick="update(1)">USO 1 CUPO</button>
+      <button class="btn-scen" onclick="update(2)">USO TOTAL</button>
+    </div>
 
-      <div class="subtitle">Por quienes ya no están.</div>
+    <div class="price-display">
+      <div class="main-price"><span id="scen-title">VALOR PROPIEDAD</span>$16.500.000</div>
+    </div>
 
-      <div class="message">
-        Pensar en estos momentos no es fácil.<br>
-        Cuando la vida sorprende, tener una decisión tomada  
-        evita carreras, angustia y decisiones apresuradas.<br><br>
-        Estamos para acompañarte de forma tranquila y respetuosa.
-      </div>
+    <div class="details-box">
+      <div class="line"><span>Gastos de Traspaso</span> <span id="val-traspaso">$2.150.000</span></div>
+      <div class="line"><span>Derecho de Parque</span> <span id="val-parque">$0</span></div>
+      <div class="line"><span>Servicios Inhumación</span> <span id="val-serv">$0</span></div>
+      <div class="total-line"><span>INVERSIÓN FINAL</span> <span id="val-total">$18.650.000</span></div>
+    </div>
 
-      <div class="info">
-        Disponibilidad: <strong>2 lotes</strong><br>
-        Información confidencial
-      </div>
+    <a href="#" id="wa-link" class="btn-wa" target="_blank">Consultar Disponibilidad</a>
+    
+    <div class="contact-footer">
+      Asesoría Profesional:<br>
+      <strong style="color: var(--gold); font-size: 15px;">Jose Jimy Guluma C.</strong>
+    </div>
 
-      <a class="btn"
-         href="https://wa.me/573227002789?text=Hola%20Jose%20Jimy,%20deseo%20recibir%20información%20sobre%20la%20disponibilidad%20y%20el%20acompañamiento%20en%20Jardines%20de%20Paz.%20Gracias."
-         target="_blank">
-        Solicitar información
-      </a>
-
-      <div class="footer">
-        Acompañamiento y gestión personalizada<br>
-        <strong>Jose Jimy Guluma C.</strong>
-      </div>
-
+    <div class="legal-disclaimer">
+      Valores proyectados según tarifas vigentes para el año <strong>2026</strong>.<br>
+      • Sujetos a ajustes administrativos del cementerio al momento del trámite oficial.<br>
+      • Propiedad con <strong>Matrícula Inmobiliaria</strong> y documentos al día.
     </div>
   </div>
+</div>
+
+<script>
+  const data = [
+    { title: "VALOR PROPIEDAD", traspaso: "$2.150.000", parque: "$0", serv: "$0", total: "$18.650.000", msg: "Futuro" },
+    { title: "USO INMEDIATO (1)", traspaso: "$2.150.000", parque: "$1.500.000", serv: "$2.410.000", total: "$22.560.000", msg: "Uso1" },
+    { title: "USO TOTAL (2)", traspaso: "$2.150.000", parque: "$1.500.000", serv: "$4.820.000", total: "$24.970.000", msg: "UsoTotal" }
+  ];
+
+  function update(i) {
+    document.querySelectorAll('.btn-scen').forEach((b, idx) => b.classList.toggle('active', idx === i));
+    const titleEl = document.getElementById('scen-title');
+    const totalEl = document.getElementById('val-total');
+    
+    titleEl.style.opacity = 0.5;
+    setTimeout(() => {
+      titleEl.innerText = data[i].title;
+      document.getElementById('val-traspaso').innerText = data[i].traspaso;
+      document.getElementById('val-parque').innerText = data[i].parque;
+      document.getElementById('val-serv').innerText = data[i].serv;
+      totalEl.innerText = data[i].total;
+      titleEl.style.opacity = 1;
+    }, 100);
+    
+    const waBase = "https://wa.me/573227002789?text=";
+    const text = encodeURIComponent(`Hola Jose Jimy, deseo recibir información detallada sobre la opción de ${data[i].msg} para el lote de Jardines de Paz.`);
+    document.getElementById('wa-link').href = waBase + text;
+  }
+  update(0);
+</script>
 
 </body>
 </html>
