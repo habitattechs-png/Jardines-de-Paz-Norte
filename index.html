@@ -15,12 +15,15 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body, html { 
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body { 
     font-family: 'Montserrat', sans-serif; 
     background: #000; 
     color: white; 
     overflow-x: hidden;
-    scroll-behavior: smooth;
   }
 
   /* SECCIÓN 1: HERO - FONDO ORIGINAL EXACTO */
@@ -34,6 +37,7 @@
     text-align: center;
     padding: 0 20px;
     overflow: hidden;
+    z-index: 10;
   }
 
   .hero-bg {
@@ -69,6 +73,9 @@
     text-transform: uppercase;
     margin-bottom: 10px;
     font-weight: 600;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
   }
 
   .hero-title {
@@ -78,6 +85,9 @@
     line-height: 1.1;
     color: #fff;
     text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.2s forwards;
   }
 
   .highlight { color: var(--gold); }
@@ -91,6 +101,9 @@
     border-radius: 3px;
     margin: 20px 0;
     display: inline-block;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: popIn 0.6s ease 0.4s forwards;
   }
 
   .main-info {
@@ -100,9 +113,17 @@
     color: #ddd;
     margin-bottom: 40px;
     font-weight: 300;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.6s forwards;
   }
 
-  .price-box { margin-bottom: 40px; }
+  .price-box { 
+    margin-bottom: 40px; 
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.8s forwards;
+  }
 
   .price-old { 
     text-decoration: line-through; 
@@ -133,6 +154,9 @@
     text-transform: uppercase;
     cursor: pointer;
     display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 1s forwards;
   }
 
   .btn-impact:hover {
@@ -141,50 +165,89 @@
     box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
   }
 
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes popIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* INDICADOR DE SCROLL MEJORADO */
   .scroll-indicator {
     position: absolute;
-    bottom: 30px;
+    bottom: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    animation: bounce 2s infinite;
     cursor: pointer;
     text-decoration: none;
     z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .mouse {
+    width: 26px;
+    height: 40px;
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    position: relative;
+    opacity: 0.6;
+  }
+
+  .mouse::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 2px;
+    animation: scrollWheel 2s infinite;
+  }
+
+  @keyframes scrollWheel {
+    0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
   }
 
   .scroll-text {
     font-size: 10px;
     letter-spacing: 2px;
-    color: #666;
+    color: #888;
     text-transform: uppercase;
   }
 
-  .scroll-arrow {
-    width: 30px;
-    height: 30px;
-    border-right: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    transform: rotate(45deg);
-    opacity: 0.6;
-  }
-
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-  }
-
-  /* SECCIÓN 2: DETALLES - FONDO ORIGINAL EXACTO */
+  /* SECCIÓN 2: DETALLES CON TRANSICIÓN DE REVELACIÓN */
   .section-details {
     position: relative;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 15px;
+    padding: 60px 15px;
     overflow: hidden;
+    /* Efecto de revelación progresiva */
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  .section-details.revealed {
+    clip-path: inset(0 0 0 0);
   }
 
   .details-bg {
@@ -196,6 +259,9 @@
     background-position: center;
     filter: brightness(0.35) contrast(1.1);
     z-index: 0;
+    /* Parallax sutil */
+    transform: translateY(0);
+    transition: transform 0.1s ease-out;
   }
 
   .details-content {
@@ -205,12 +271,33 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    animation: fadeIn 1s ease-out;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease 0.4s;
   }
 
-  @keyframes fadeIn { 
-    from { opacity: 0; transform: translateY(10px); } 
-    to { opacity: 1; transform: translateY(0); } 
+  .section-details.revealed .details-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Línea dorada de transición */
+  .gold-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transform: scaleX(0);
+    transition: all 0.8s ease;
+    z-index: 5;
+  }
+
+  .section-details.revealed .gold-line {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
   .card {
@@ -223,6 +310,13 @@
     box-shadow: 0 40px 80px rgba(0,0,0,0.9);
     border: 1px solid rgba(212, 175, 55, 0.3);
     text-align: center;
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 50px 100px rgba(0,0,0,0.95), 0 0 40px rgba(212, 175, 55, 0.1);
   }
 
   .card-title { 
@@ -248,6 +342,13 @@
     border-radius: 15px;
     padding: 15px;
     margin-bottom: 25px;
+    transition: all 0.3s ease;
+  }
+
+  .location-box:hover {
+    background: rgba(212, 175, 55, 0.12);
+    border-style: solid;
+    transform: scale(1.02);
   }
   
   .loc-title { 
@@ -287,22 +388,46 @@
     border-radius: 10px; 
     font-size: 9px; 
     cursor: pointer; 
-    transition: 0.3s; 
+    transition: all 0.3s ease; 
     flex: 1; 
     font-weight: 700;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-scen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-scen:hover::before {
+    left: 100%;
   }
   
   .btn-scen.active { 
     border-color: var(--gold); 
     color: #fff; 
     background: rgba(212, 175, 55, 0.2); 
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
   }
 
   .main-price { 
     font-size: 42px; 
     font-weight: 700; 
     color: #fff; 
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .main-price:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
   }
   
   .main-price span { 
@@ -319,7 +444,13 @@
     padding: 20px; 
     text-align: left; 
     margin-bottom: 25px; 
-    border: 1px solid rgba(255,255,255,0.05); 
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+  }
+
+  .details-box:hover {
+    border-color: rgba(212, 175, 55, 0.2);
+    background: rgba(255,255,255,0.04);
   }
   
   .line { 
@@ -328,6 +459,12 @@
     font-size: 13px; 
     margin-bottom: 10px; 
     color: #ccc; 
+    transition: all 0.3s ease;
+  }
+
+  .line:hover {
+    color: #fff;
+    transform: translateX(5px);
   }
   
   .line span:last-child { 
@@ -354,13 +491,33 @@
     font-weight: 700;
     font-size: 13px;
     text-transform: uppercase;
-    transition: 0.3s;
+    transition: all 0.3s ease; 
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-wa::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .btn-wa:hover::after {
+    opacity: 1;
   }
   
   .btn-wa:hover { 
-    transform: translateY(-2px); 
+    transform: translateY(-3px); 
     box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4); 
+    letter-spacing: 4px;
   }
 
   .legal-disclaimer { 
@@ -372,6 +529,13 @@
     background: rgba(255, 255, 255, 0.06); 
     border-radius: 12px;
     text-shadow: 1px 1px 2px #000;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .legal-disclaimer:hover {
+    border-color: rgba(212, 175, 55, 0.2);
+    background: rgba(255, 255, 255, 0.08);
   }
   
   .legal-disclaimer strong { color: var(--gold-bright); }
@@ -401,6 +565,7 @@
     transition: all 0.3s;
     z-index: 100;
     text-decoration: none;
+    backdrop-filter: blur(10px);
   }
 
   .back-to-top.visible {
@@ -409,7 +574,7 @@
 
   .back-to-top:hover {
     background: var(--gold);
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.1);
   }
 
   .back-to-top::before {
@@ -425,11 +590,27 @@
   .back-to-top:hover::before {
     border-color: #000;
   }
+
+  /* Animación de entrada para elementos de la card */
+  .card > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .section-details.revealed .card > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(6) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(7) { transition-delay: 0.7s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(8) { transition-delay: 0.8s; opacity: 1; transform: translateY(0); }
+  .section-details.revealed .card > *:nth-child(9) { transition-delay: 0.9s; opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<!-- SECCIÓN 1: HERO (FONDO ORIGINAL RESTAURADO) -->
 <section class="section-hero" id="inicio">
   <div class="hero-bg"></div>
   
@@ -453,13 +634,13 @@
   </div>
 
   <a href="#detalles" class="scroll-indicator">
-    <span class="scroll-text">Deslice para conocer la ubicación exacta</span>
-    <div class="scroll-arrow"></div>
+    <div class="mouse"></div>
+    <span class="scroll-text">Deslice para explorar</span>
   </a>
 </section>
 
-<!-- SECCIÓN 2: DETALLES (FONDO ORIGINAL RESTAURADO) -->
 <section class="section-details" id="detalles">
+  <div class="gold-line"></div>
   <div class="details-bg"></div>
   
   <div class="details-content">
@@ -531,6 +712,36 @@
   
   update(0);
 
+  // Intersection Observer para revelación progresiva
+  const detailsSection = document.querySelector('.section-details');
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -100px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, observerOptions);
+
+  observer.observe(detailsSection);
+
+  // Parallax sutil en la segunda sección
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const detailsBg = document.querySelector('.details-bg');
+    const detailsRect = detailsSection.getBoundingClientRect();
+    
+    if (detailsRect.top < window.innerHeight && detailsRect.bottom > 0) {
+      const speed = 0.3;
+      detailsBg.style.transform = `translateY(${(scrolled - detailsSection.offsetTop) * speed}px)`;
+    }
+  });
+
+  // Botón volver arriba
   const backToTopBtn = document.getElementById('backToTop');
   
   window.addEventListener('scroll', () => {
