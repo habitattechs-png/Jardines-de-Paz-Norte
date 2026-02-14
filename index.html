@@ -275,7 +275,6 @@
     text-transform: uppercase; 
   }
 
-  /* NUEVO: Selector de Modalidad */
   .modality-selector {
     display: flex;
     gap: 10px;
@@ -314,7 +313,6 @@
     text-transform: uppercase;
   }
 
-  /* NUEVO: Indicador de color */
   .color-indicator {
     display: flex;
     justify-content: center;
@@ -504,7 +502,7 @@
     background: rgba(212, 175, 55, 0.05);
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 10px;
-    padding: 12px;
+    padding: 15px;
     margin-bottom: 20px;
     text-align: left;
   }
@@ -513,9 +511,15 @@
     font-size: 11px;
     color: var(--gold);
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
+  }
+  
+  .price-comparison {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
   }
   
   .price-row {
@@ -526,12 +530,51 @@
     color: #ccc;
   }
   
+  .price-row.crossed {
+    opacity: 0.6;
+    font-size: 11px;
+  }
+  
+  .price-row.discount {
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 600;
+  }
+  
   .price-row.total {
     color: var(--gold-bright);
     font-weight: 700;
     border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 8px;
-    margin-top: 8px;
+    padding-top: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .integral-explanation {
+    background: rgba(245, 166, 35, 0.1);
+    border-left: 3px solid #f5a623;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #ddd;
+  }
+  
+  .savings-integral {
+    background: rgba(46, 204, 113, 0.15);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #2ecc71;
+    display: none;
+  }
+  
+  .savings-integral.visible {
+    display: block;
   }
 
   .footer-name { 
@@ -631,14 +674,12 @@
         <span class="loc-sub">Disponibilidad de 2 lotes contiguos</span>
       </div>
 
-      <!-- NUEVO: Selector de Modalidad -->
       <div class="modality-label">Seleccione modalidad de compra:</div>
       <div class="modality-selector">
         <button class="btn-modality active" onclick="setModality('NI')">Necesidad Inmediata</button>
         <button class="btn-modality" onclick="setModality('PRE')">Pre-necesidad</button>
       </div>
 
-      <!-- NUEVO: Indicador de colores -->
       <div class="color-indicator">
         <div class="color-box">
           <div class="color-dot dot-blue"></div>
@@ -661,20 +702,40 @@
         <div class="price-note" id="price-note">Solo traspaso. Sin servicios inmediatos.</div>
       </div>
 
-      <!-- NUEVO: Tabla de precios de servicios -->
       <div class="price-table-info" id="services-table" style="display: none;">
-        <div class="price-table-title">Desglose de Servicios</div>
-        <div class="price-row">
-          <span>Derechos de Parque:</span>
-          <span id="table-parque">-</span>
+        <div class="price-table-title">Desglose de Servicios (por cupo)</div>
+        
+        <div class="price-comparison">
+          <div class="price-row crossed">
+            <span>🔵 Derechos Parque (Normal):</span>
+            <span id="table-parque-blue" style="text-decoration: line-through; color: #888;">-</span>
+          </div>
+          <div class="price-row crossed">
+            <span>🔵 Servicios Inhumación (Normal):</span>
+            <span id="table-serv-blue" style="text-decoration: line-through; color: #888;">-</span>
+          </div>
+          <div class="price-row discount">
+            <span>🟡 Derechos Parque (Integral):</span>
+            <span id="table-parque" style="color: #f5a623; font-weight: 700;">-</span>
+          </div>
+          <div class="price-row discount">
+            <span>🟡 Servicios Inhumación (Integral):</span>
+            <span id="table-serv" style="color: #f5a623; font-weight: 700;">-</span>
+          </div>
         </div>
-        <div class="price-row">
-          <span>Servicios Inhumación:</span>
-          <span id="table-serv">-</span>
+        
+        <div class="integral-explanation">
+          <small>💡 <strong>¿Por qué precio integral?</strong> Al adquirir derechos de parque + servicios de inhumación juntos, 
+          automáticamente aplica el descuento por "integralidad". No es posible comprar separado.</small>
         </div>
+        
         <div class="price-row total">
           <span>Subtotal Servicios:</span>
           <span id="table-subtotal">-</span>
+        </div>
+        
+        <div class="savings-integral" id="savings-integral">
+          <span>💰 Ahorro por integralidad: <strong id="integral-save">-</strong></span>
         </div>
       </div>
 
@@ -729,7 +790,6 @@
 <a href="#inicio" class="back-to-top" id="backToTop"></a>
 
 <script>
-  // Datos según tabla oficial del asesor
   const prices = {
     NI: {
       parque: { normal: 6100000, integral: 5700000 },
@@ -751,14 +811,14 @@
       msg: "Inversion-Futuro"
     },
     { 
-      title: "USO INMEDIATO (1 CUPO)", 
+      title: "USO INMEDIATO (1 cupo)", 
       hasServices: true,
       cups: 1,
       note: "Incluye derechos de parque + servicios de inhumación para 1 cupo.",
       msg: "Uso1Cupo"
     },
     { 
-      title: "USO TOTAL (2 CUPOS)", 
+      title: "USO TOTAL (2 cupos)", 
       hasServices: true,
       cups: 2,
       note: "Incluye derechos de parque + servicios de inhumación para 2 cupos.",
@@ -776,7 +836,6 @@
       btn.classList.toggle('active', (modality === 'NI' && idx === 0) || (modality === 'PRE' && idx === 1));
     });
     
-    // Actualizar escenario actual
     const activeBtn = document.querySelector('.btn-scen.active');
     const activeIndex = Array.from(document.querySelectorAll('.btn-scen')).indexOf(activeBtn);
     update(activeIndex);
@@ -786,55 +845,57 @@
     const scenario = scenarios[index];
     const p = prices[currentModality];
     
-    // Actualizar botones
     document.querySelectorAll('.btn-scen').forEach((b, idx) => b.classList.toggle('active', idx === index));
     
-    // Actualizar título y nota
     document.getElementById('scen-title').innerText = scenario.title;
     document.getElementById('price-note').innerText = scenario.note;
     
-    // Calcular valores
     const lote = 16500000;
     const traspaso = 2150000;
-    let parque = 0;
-    let serv = 0;
+    let parqueIntegral = 0;
+    let servIntegral = 0;
+    let parqueNormal = 0;
+    let servNormal = 0;
     
     if (scenario.hasServices) {
-      // Aplicar descuento por integralidad (compra conjunta)
-      parque = p.parque.integral * scenario.cups;
-      serv = p.serv.integral * scenario.cups;
+      parqueNormal = p.parque.normal * scenario.cups;
+      servNormal = p.serv.normal * scenario.cups;
+      parqueIntegral = p.parque.integral * scenario.cups;
+      servIntegral = p.serv.integral * scenario.cups;
       
-      // Mostrar líneas de servicios
+      const ahorroIntegral = (parqueNormal + servNormal) - (parqueIntegral + servIntegral);
+      
       document.getElementById('line-parque').style.display = 'flex';
       document.getElementById('line-serv').style.display = 'flex';
       document.getElementById('services-table').style.display = 'block';
       
-      // Actualizar tags de color
       document.getElementById('tag-parque').innerText = 'INTEGRAL';
       document.getElementById('tag-parque').className = 'price-tag tag-yellow';
       document.getElementById('tag-serv').innerText = 'INTEGRAL';
       document.getElementById('tag-serv').className = 'price-tag tag-yellow';
       
-      // Actualizar tabla de servicios
+      document.getElementById('table-parque-blue').innerText = formatMoney(p.parque.normal) + ' × ' + scenario.cups;
+      document.getElementById('table-serv-blue').innerText = formatMoney(p.serv.normal) + ' × ' + scenario.cups;
       document.getElementById('table-parque').innerText = formatMoney(p.parque.integral) + ' × ' + scenario.cups;
       document.getElementById('table-serv').innerText = formatMoney(p.serv.integral) + ' × ' + scenario.cups;
-      document.getElementById('table-subtotal').innerText = formatMoney(parque + serv);
+      document.getElementById('table-subtotal').innerText = formatMoney(parqueIntegral + servIntegral);
+      
+      document.getElementById('integral-save').innerText = formatMoney(ahorroIntegral);
+      document.getElementById('savings-integral').classList.add('visible');
       
     } else {
-      // Ocultar líneas de servicios
       document.getElementById('line-parque').style.display = 'none';
       document.getElementById('line-serv').style.display = 'none';
       document.getElementById('services-table').style.display = 'none';
+      document.getElementById('savings-integral').classList.remove('visible');
     }
     
-    const total = lote + traspaso + parque + serv;
+    const total = lote + traspaso + parqueIntegral + servIntegral;
     
-    // Actualizar valores en DOM
-    document.getElementById('val-parque').innerText = formatMoney(parque);
-    document.getElementById('val-serv').innerText = formatMoney(serv);
+    document.getElementById('val-parque').innerText = formatMoney(parqueIntegral);
+    document.getElementById('val-serv').innerText = formatMoney(servIntegral);
     document.getElementById('val-total').innerText = formatMoney(total);
     
-    // Mostrar ahorro si es Pre-necesidad
     const savingsBox = document.getElementById('savings-box');
     if (currentModality === 'PRE' && scenario.hasServices) {
       const niTotal = calculateNITotal(scenario);
@@ -845,7 +906,6 @@
       savingsBox.classList.remove('visible');
     }
     
-    // Actualizar link de WhatsApp
     const waBase = "https://wa.me/573227002789?text=";
     const text = encodeURIComponent(
       `Hola Jose Jimy, deseo información sobre el lote en Jardines de Paz Zona Norte (Sector 12, Manzana 13). ` +
@@ -862,10 +922,8 @@
     return lote + traspaso + parque + serv;
   }
 
-  // Inicializar
   update(0);
 
-  // Back to top
   const backToTopBtn = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
     if (window.scrollY > window.innerHeight * 0.5) {
