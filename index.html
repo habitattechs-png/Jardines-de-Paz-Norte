@@ -4,13 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jardines de Paz – Oportunidad Patrimonial 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
   :root {
     --gold: #d4af37;
     --gold-bright: #f1d592;
     --dark-bg: rgba(10, 10, 10, 0.95);
+    --blue-price: #4a90e2;
+    --yellow-price: #f5a623;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,7 +25,7 @@
     scroll-behavior: smooth;
   }
 
-  /* SECCIÓN 1: HERO - FONDO ORIGINAL EXACTO */
+  /* SECCIÓN 1: HERO */
   .section-hero {
     position: relative;
     height: 100vh;
@@ -176,7 +178,7 @@
     60% { transform: translateY(-5px); }
   }
 
-  /* SECCIÓN 2: DETALLES - FONDO ORIGINAL EXACTO */
+  /* SECCIÓN 2: DETALLES */
   .section-details {
     position: relative;
     min-height: 100vh;
@@ -214,7 +216,7 @@
   }
 
   .card {
-    max-width: 480px;
+    max-width: 520px;
     width: 100%;
     background: var(--dark-bg);
     backdrop-filter: blur(20px);
@@ -273,6 +275,69 @@
     text-transform: uppercase; 
   }
 
+  /* NUEVO: Selector de Modalidad */
+  .modality-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.05);
+    padding: 5px;
+    border-radius: 15px;
+  }
+  
+  .btn-modality {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 12px 5px;
+    border-radius: 10px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .btn-modality.active {
+    background: rgba(212, 175, 55, 0.3);
+    color: var(--gold-bright);
+    border: 1px solid var(--gold);
+  }
+
+  .modality-label {
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* NUEVO: Indicador de color */
+  .color-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-size: 11px;
+  }
+  
+  .color-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+  
+  .dot-blue { background: var(--blue-price); }
+  .dot-yellow { background: var(--yellow-price); }
+
   .scenarios { 
     display: flex; 
     gap: 8px; 
@@ -290,6 +355,7 @@
     transition: 0.3s; 
     flex: 1; 
     font-weight: 700;
+    line-height: 1.3;
   }
   
   .btn-scen.active { 
@@ -302,7 +368,7 @@
     font-size: 42px; 
     font-weight: 700; 
     color: #fff; 
-    margin-bottom: 20px; 
+    margin-bottom: 5px; 
   }
   
   .main-price span { 
@@ -311,6 +377,13 @@
     display: block; 
     letter-spacing: 2px; 
     margin-bottom: 5px; 
+  }
+
+  .price-note {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 20px;
+    font-style: italic;
   }
 
   .details-box { 
@@ -328,11 +401,31 @@
     font-size: 13px; 
     margin-bottom: 10px; 
     color: #ccc; 
+    align-items: center;
   }
   
   .line span:last-child { 
     font-weight: 600; 
     color: #fff; 
+  }
+
+  .price-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 8px;
+    font-weight: 700;
+  }
+  
+  .tag-blue {
+    background: var(--blue-price);
+    color: white;
+  }
+  
+  .tag-yellow {
+    background: var(--yellow-price);
+    color: #000;
   }
   
   .total-line { 
@@ -342,6 +435,26 @@
     color: var(--gold-bright); 
     font-weight: 700; 
     font-size: 19px; 
+  }
+
+  .savings-box {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 15px;
+    text-align: center;
+    display: none;
+  }
+  
+  .savings-box.visible {
+    display: block;
+  }
+  
+  .savings-text {
+    color: #2ecc71;
+    font-size: 12px;
+    font-weight: 600;
   }
 
   .btn-wa {
@@ -356,6 +469,7 @@
     text-transform: uppercase;
     transition: 0.3s;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
   }
   
   .btn-wa:hover { 
@@ -366,15 +480,59 @@
   .legal-disclaimer { 
     font-size: 10.5px; 
     color: #ffffff; 
-    margin-top: 25px; 
-    line-height: 1.5; 
+    line-height: 1.6; 
     padding: 15px; 
     background: rgba(255, 255, 255, 0.06); 
     border-radius: 12px;
     text-shadow: 1px 1px 2px #000;
+    text-align: left;
+    margin-bottom: 20px;
   }
   
   .legal-disclaimer strong { color: var(--gold-bright); }
+  
+  .legal-disclaimer ul {
+    margin-left: 15px;
+    margin-top: 8px;
+  }
+  
+  .legal-disclaimer li {
+    margin-bottom: 5px;
+  }
+
+  .price-table-info {
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .price-table-title {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: #ccc;
+  }
+  
+  .price-row.total {
+    color: var(--gold-bright);
+    font-weight: 700;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 8px;
+    margin-top: 8px;
+  }
 
   .footer-name { 
     margin-top: 20px; 
@@ -429,7 +587,7 @@
 </head>
 <body>
 
-<!-- SECCIÓN 1: HERO (FONDO ORIGINAL RESTAURADO) -->
+<!-- SECCIÓN 1: HERO -->
 <section class="section-hero" id="inicio">
   <div class="hero-bg"></div>
   
@@ -458,7 +616,7 @@
   </a>
 </section>
 
-<!-- SECCIÓN 2: DETALLES (FONDO ORIGINAL RESTAURADO) -->
+<!-- SECCIÓN 2: DETALLES -->
 <section class="section-details" id="detalles">
   <div class="details-bg"></div>
   
@@ -473,30 +631,91 @@
         <span class="loc-sub">Disponibilidad de 2 lotes contiguos</span>
       </div>
 
+      <!-- NUEVO: Selector de Modalidad -->
+      <div class="modality-label">Seleccione modalidad de compra:</div>
+      <div class="modality-selector">
+        <button class="btn-modality active" onclick="setModality('NI')">Necesidad Inmediata</button>
+        <button class="btn-modality" onclick="setModality('PRE')">Pre-necesidad</button>
+      </div>
+
+      <!-- NUEVO: Indicador de colores -->
+      <div class="color-indicator">
+        <div class="color-box">
+          <div class="color-dot dot-blue"></div>
+          <span>Precio Normal</span>
+        </div>
+        <div class="color-box">
+          <div class="color-dot dot-yellow"></div>
+          <span>Con Integralidad</span>
+        </div>
+      </div>
+
       <div class="scenarios">
-        <button class="btn-scen active" onclick="update(0)">PARA FUTURO</button>
-        <button class="btn-scen" onclick="update(1)">USO 1 CUPO</button>
-        <button class="btn-scen" onclick="update(2)">USO TOTAL</button>
+        <button class="btn-scen active" onclick="update(0)">SOLO LOTE<br>(Inversión)</button>
+        <button class="btn-scen" onclick="update(1)">1 CUPO<br>(Inmediato)</button>
+        <button class="btn-scen" onclick="update(2)">2 CUPOS<br>(Total)</button>
       </div>
 
       <div class="price-display">
-        <div class="main-price"><span id="scen-title">INVERSIÓN POR LOTE</span>$16.500.000</div>
+        <div class="main-price"><span id="scen-title">INVERSIÓN POR LOTE</span><span id="main-price">$16.500.000</span></div>
+        <div class="price-note" id="price-note">Solo traspaso. Sin servicios inmediatos.</div>
+      </div>
+
+      <!-- NUEVO: Tabla de precios de servicios -->
+      <div class="price-table-info" id="services-table" style="display: none;">
+        <div class="price-table-title">Desglose de Servicios</div>
+        <div class="price-row">
+          <span>Derechos de Parque:</span>
+          <span id="table-parque">-</span>
+        </div>
+        <div class="price-row">
+          <span>Servicios Inhumación:</span>
+          <span id="table-serv">-</span>
+        </div>
+        <div class="price-row total">
+          <span>Subtotal Servicios:</span>
+          <span id="table-subtotal">-</span>
+        </div>
       </div>
 
       <div class="details-box">
-        <div class="line"><span>Gastos de Traspaso</span> <span id="val-traspaso">$2.150.000</span></div>
-        <div class="line"><span>Derecho de Parque</span> <span id="val-parque">$0</span></div>
-        <div class="line"><span>Servicios Inhumación</span> <span id="val-serv">$0</span></div>
-        <div class="total-line"><span>TOTAL ESTIMADO</span> <span id="val-total">$18.650.000</span></div>
+        <div class="line">
+          <span>Lote Jardines de Paz</span> 
+          <span>$16.500.000</span>
+        </div>
+        <div class="line">
+          <span>Gastos de Traspaso</span> 
+          <span>$2.150.000</span>
+        </div>
+        <div class="line" id="line-parque" style="display: none;">
+          <span>Derechos de Parque <span class="price-tag" id="tag-parque">-</span></span> 
+          <span id="val-parque">$0</span>
+        </div>
+        <div class="line" id="line-serv" style="display: none;">
+          <span>Servicios Inhumación <span class="price-tag" id="tag-serv">-</span></span> 
+          <span id="val-serv">$0</span>
+        </div>
+        <div class="total-line">
+          <span>TOTAL ESTIMADO</span> 
+          <span id="val-total">$18.650.000</span>
+        </div>
+      </div>
+
+      <div class="savings-box" id="savings-box">
+        <div class="savings-text">💰 Ahorro por Pre-necesidad: <span id="savings-amount">$0</span></div>
       </div>
 
       <a href="#" id="wa-link" class="btn-wa" target="_blank">Consultar Disponibilidad</a>
       
       <div class="legal-disclaimer">
-        Valores proyectados para el año <strong>2026</strong>.<br>
-        • Ubicación en terreno plano y sector preferencial.<br>
-        • Incluye <strong>Matrícula Inmobiliaria</strong> independiente.<br>
-        • Títulos de propiedad al día y listos para traspaso.
+        <strong>📋 INFORMACIÓN IMPORTANTE:</strong>
+        <ul>
+          <li><strong>Valores actualizados 2025</strong> según lista de precios oficial de Jardines de Paz.</li>
+          <li><strong>Necesidad Inmediata (NI):</strong> Cuando el servicio se requiere en el momento.</li>
+          <li><strong>Pre-necesidad (PRE):</strong> Compra anticipada. <strong>Ahorro de $800.000</strong> por servicio.</li>
+          <li><strong>Integralidad:</strong> Descuento adicional al comprar derechos + servicios juntos (precio amarillo).</li>
+          <li>Incluye <strong>Matrícula Inmobiliaria</strong> independiente y títulos al día.</li>
+        </ul>
       </div>
 
       <div class="footer-name">
@@ -510,29 +729,144 @@
 <a href="#inicio" class="back-to-top" id="backToTop"></a>
 
 <script>
-  const data = [
-    { title: "INVERSIÓN POR LOTE", traspaso: "$2.150.000", parque: "$0", serv: "$0", total: "$18.650.000", msg: "Futuro" },
-    { title: "USO INMEDIATO (1)", traspaso: "$2.150.000", parque: "$1.500.000", serv: "$2.410.000", total: "$22.560.000", msg: "Uso1" },
-    { title: "USO TOTAL (2)", traspaso: "$2.150.000", parque: "$1.500.000", serv: "$4.820.000", total: "$24.970.000", msg: "UsoTotal" }
+  // Datos según tabla oficial del asesor
+  const prices = {
+    NI: {
+      parque: { normal: 6100000, integral: 5700000 },
+      serv: { normal: 6100000, integral: 5700000 }
+    },
+    PRE: {
+      parque: { normal: 5000000, integral: 4500000 },
+      serv: { normal: 5000000, integral: 4500000 }
+    }
+  };
+
+  let currentModality = 'NI';
+  
+  const scenarios = [
+    { 
+      title: "INVERSIÓN POR LOTE", 
+      hasServices: false,
+      note: "Solo traspaso. Sin servicios inmediatos. Listo para usar en el futuro.",
+      msg: "Inversion-Futuro"
+    },
+    { 
+      title: "USO INMEDIATO (1 CUPO)", 
+      hasServices: true,
+      cups: 1,
+      note: "Incluye derechos de parque + servicios de inhumación para 1 cupo.",
+      msg: "Uso1Cupo"
+    },
+    { 
+      title: "USO TOTAL (2 CUPOS)", 
+      hasServices: true,
+      cups: 2,
+      note: "Incluye derechos de parque + servicios de inhumación para 2 cupos.",
+      msg: "UsoTotal"
+    }
   ];
 
-  function update(i) {
-    document.querySelectorAll('.btn-scen').forEach((b, idx) => b.classList.toggle('active', idx === i));
-    document.getElementById('scen-title').innerText = data[i].title;
-    document.getElementById('val-traspaso').innerText = data[i].traspaso;
-    document.getElementById('val-parque').innerText = data[i].parque;
-    document.getElementById('val-serv').innerText = data[i].serv;
-    document.getElementById('val-total').innerText = data[i].total;
+  function formatMoney(amount) {
+    return '$' + amount.toLocaleString('es-CO');
+  }
+
+  function setModality(modality) {
+    currentModality = modality;
+    document.querySelectorAll('.btn-modality').forEach((btn, idx) => {
+      btn.classList.toggle('active', (modality === 'NI' && idx === 0) || (modality === 'PRE' && idx === 1));
+    });
     
+    // Actualizar escenario actual
+    const activeBtn = document.querySelector('.btn-scen.active');
+    const activeIndex = Array.from(document.querySelectorAll('.btn-scen')).indexOf(activeBtn);
+    update(activeIndex);
+  }
+
+  function update(index) {
+    const scenario = scenarios[index];
+    const p = prices[currentModality];
+    
+    // Actualizar botones
+    document.querySelectorAll('.btn-scen').forEach((b, idx) => b.classList.toggle('active', idx === index));
+    
+    // Actualizar título y nota
+    document.getElementById('scen-title').innerText = scenario.title;
+    document.getElementById('price-note').innerText = scenario.note;
+    
+    // Calcular valores
+    const lote = 16500000;
+    const traspaso = 2150000;
+    let parque = 0;
+    let serv = 0;
+    
+    if (scenario.hasServices) {
+      // Aplicar descuento por integralidad (compra conjunta)
+      parque = p.parque.integral * scenario.cups;
+      serv = p.serv.integral * scenario.cups;
+      
+      // Mostrar líneas de servicios
+      document.getElementById('line-parque').style.display = 'flex';
+      document.getElementById('line-serv').style.display = 'flex';
+      document.getElementById('services-table').style.display = 'block';
+      
+      // Actualizar tags de color
+      document.getElementById('tag-parque').innerText = 'INTEGRAL';
+      document.getElementById('tag-parque').className = 'price-tag tag-yellow';
+      document.getElementById('tag-serv').innerText = 'INTEGRAL';
+      document.getElementById('tag-serv').className = 'price-tag tag-yellow';
+      
+      // Actualizar tabla de servicios
+      document.getElementById('table-parque').innerText = formatMoney(p.parque.integral) + ' × ' + scenario.cups;
+      document.getElementById('table-serv').innerText = formatMoney(p.serv.integral) + ' × ' + scenario.cups;
+      document.getElementById('table-subtotal').innerText = formatMoney(parque + serv);
+      
+    } else {
+      // Ocultar líneas de servicios
+      document.getElementById('line-parque').style.display = 'none';
+      document.getElementById('line-serv').style.display = 'none';
+      document.getElementById('services-table').style.display = 'none';
+    }
+    
+    const total = lote + traspaso + parque + serv;
+    
+    // Actualizar valores en DOM
+    document.getElementById('val-parque').innerText = formatMoney(parque);
+    document.getElementById('val-serv').innerText = formatMoney(serv);
+    document.getElementById('val-total').innerText = formatMoney(total);
+    
+    // Mostrar ahorro si es Pre-necesidad
+    const savingsBox = document.getElementById('savings-box');
+    if (currentModality === 'PRE' && scenario.hasServices) {
+      const niTotal = calculateNITotal(scenario);
+      const ahorro = niTotal - total;
+      document.getElementById('savings-amount').innerText = formatMoney(ahorro);
+      savingsBox.classList.add('visible');
+    } else {
+      savingsBox.classList.remove('visible');
+    }
+    
+    // Actualizar link de WhatsApp
     const waBase = "https://wa.me/573227002789?text=";
-    const text = encodeURIComponent(`Hola Jose Jimy, deseo información sobre el lote en Jardines de Paz Zona Norte (Sector 12, Manzana 13). Me interesa la opción de ${data[i].msg}.`);
+    const text = encodeURIComponent(
+      `Hola Jose Jimy, deseo información sobre el lote en Jardines de Paz Zona Norte (Sector 12, Manzana 13). ` +
+      `Me interesa la opción: ${scenario.msg} en modalidad ${currentModality}.`
+    );
     document.getElementById('wa-link').href = waBase + text;
   }
   
+  function calculateNITotal(scenario) {
+    const lote = 16500000;
+    const traspaso = 2150000;
+    const parque = prices.NI.parque.integral * scenario.cups;
+    const serv = prices.NI.serv.integral * scenario.cups;
+    return lote + traspaso + parque + serv;
+  }
+
+  // Inicializar
   update(0);
 
+  // Back to top
   const backToTopBtn = document.getElementById('backToTop');
-  
   window.addEventListener('scroll', () => {
     if (window.scrollY > window.innerHeight * 0.5) {
       backToTopBtn.classList.add('visible');
