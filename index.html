@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jardines de Paz – Previsión Familiar 2026</title>
+<title>Jardines de Paz – Oportunidad Patrimonial 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
     --gold: #d4af37;
     --gold-bright: #f1d592;
-    --dark-bg: rgba(10, 10, 10, 0.94);
+    --dark-bg: rgba(10, 10, 10, 0.95);
   }
 
   body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; overflow-x: hidden; }
@@ -19,90 +19,70 @@
     background-image: url('https://cementeriojardinesdelapaz.com/sites/default/files/2023-03/_DSF4839-44.jpg');
     background-size: cover; background-position: center; 
     position: fixed; width: 100%; height: 100%; z-index: 1; 
-    filter: brightness(0.4) contrast(1.1);
+    filter: brightness(0.35) contrast(1.1);
   }
 
-  .container { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 20px; animation: fadeIn 1s ease-out; }
+  .container { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 15px; animation: fadeIn 1s ease-out; }
 
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   .card {
     max-width: 480px; width: 100%; 
     background: var(--dark-bg);
-    backdrop-filter: blur(25px);
-    border-radius: 28px; padding: 45px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    backdrop-filter: blur(20px);
+    border-radius: 28px; padding: 40px 30px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.9);
+    border: 1px solid rgba(212, 175, 55, 0.3);
     text-align: center;
   }
 
-  .title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 26px; letter-spacing: 5px; margin-bottom: 5px; }
-  .tagline { font-size: 11px; letter-spacing: 3px; color: var(--gold-bright); text-transform: uppercase; margin-bottom: 20px; font-weight: 500; }
+  .title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 26px; letter-spacing: 4px; margin-bottom: 5px; }
+  .tagline { font-size: 11px; letter-spacing: 2px; color: var(--gold-bright); text-transform: uppercase; margin-bottom: 20px; font-weight: 500; }
 
-  /* ETIQUETA DE UBICACIÓN PREMIUM */
-  .location-badge {
-    display: inline-block;
-    background: rgba(212, 175, 55, 0.15);
-    padding: 10px 22px;
-    border-radius: 50px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    margin-bottom: 30px;
-    transition: 0.3s;
+  /* BLOQUE DE UBICACIÓN TÉCNICA */
+  .location-box {
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px dashed rgba(212, 175, 55, 0.4);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 25px;
   }
-  .location-badge span {
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-  }
+  .loc-title { color: var(--gold-bright); font-size: 13px; font-weight: 700; margin-bottom: 4px; display: block; }
+  .loc-detail { color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; }
+  .loc-sub { color: #aaa; font-size: 10px; margin-top: 5px; display: block; text-transform: uppercase; }
 
-  .scenarios { display: flex; gap: 8px; margin-bottom: 30px; }
+  .scenarios { display: flex; gap: 8px; margin-bottom: 25px; }
   .btn-scen { 
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); 
-    color: #bbb; padding: 12px 5px; border-radius: 12px; font-size: 9px; 
-    cursor: pointer; transition: all 0.4s ease; flex: 1;
-    font-weight: 700; letter-spacing: 1px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+    color: #888; padding: 12px 5px; border-radius: 10px; font-size: 9px; 
+    cursor: pointer; transition: 0.3s; flex: 1; font-weight: 700;
   }
-  .btn-scen.active { border-color: var(--gold); color: #fff; background: rgba(212, 175, 55, 0.25); box-shadow: 0 0 15px rgba(212,175,55,0.2); }
+  .btn-scen.active { border-color: var(--gold); color: #fff; background: rgba(212, 175, 55, 0.2); }
 
-  .main-price { font-size: 44px; font-weight: 700; color: #fff; margin-bottom: 25px; transition: 0.3s; }
-  .main-price span { font-size: 12px; color: var(--gold); display: block; letter-spacing: 2.5px; margin-bottom: 8px; font-weight: 600; }
+  .main-price { font-size: 42px; font-weight: 700; color: #fff; margin-bottom: 20px; }
+  .main-price span { font-size: 12px; color: var(--gold); display: block; letter-spacing: 2px; margin-bottom: 5px; }
 
-  .details-box { background: rgba(255,255,255,0.05); border-radius: 18px; padding: 25px; text-align: left; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
-  .line { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 12px; color: #f0f0f0; }
+  .details-box { background: rgba(255,255,255,0.03); border-radius: 15px; padding: 20px; text-align: left; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05); }
+  .line { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; color: #ccc; }
   .line span:last-child { font-weight: 600; color: #fff; }
-  .total-line { border-top: 1px solid rgba(212, 175, 55, 0.4); padding-top: 15px; margin-top: 15px; color: var(--gold-bright); font-weight: 700; font-size: 20px; }
+  .total-line { border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 12px; margin-top: 12px; color: var(--gold-bright); font-weight: 700; font-size: 19px; }
 
   .btn-wa {
     display: block; background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-    color: #000; padding: 20px; border-radius: 50px;
-    text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; 
-    transition: all 0.3s; box-shadow: 0 12px 24px rgba(184, 134, 11, 0.3);
+    color: #000; padding: 18px; border-radius: 50px;
+    text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; 
+    transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   }
-  .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 18px 35px rgba(212, 175, 55, 0.5); }
+  .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4); }
 
-  .contact-footer { margin-top: 25px; font-size: 12px; color: #ccc; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-bottom: 10px; }
-
-  /* CLÁUSULA LEGAL CON MÁXIMA VISIBILIDAD */
   .legal-disclaimer { 
-    font-size: 11px; 
-    color: #ffffff; /* Blanco puro para lectura fácil */
-    margin-top: 30px; 
-    line-height: 1.6; 
-    font-weight: 500; 
-    text-align: center;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.08); 
-    border-radius: 14px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 10.5px; color: #ffffff; margin-top: 25px; line-height: 1.5; 
+    padding: 15px; background: rgba(255, 255, 255, 0.06); border-radius: 12px;
+    text-shadow: 1px 1px 2px #000;
   }
-  .legal-disclaimer strong {
-    color: var(--gold-bright);
-    font-weight: 700;
-  }
+  .legal-disclaimer strong { color: var(--gold-bright); }
 
+  .footer-name { margin-top: 20px; font-size: 11px; color: #777; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; }
 </style>
 </head>
 <body>
@@ -112,11 +92,13 @@
 <div class="container">
   <div class="card">
     <div class="title">Jardines de Paz</div>
-    <div class="tagline">Seguridad Patrimonial · Lote Doble</div>
+    <div class="tagline">Zona Norte Bogotá · Lote Doble</div>
 
-<div class="location-badge">
-  <span>📍 ZONA NORTE · SECTOR 12 (Preferencial)</span>
-</div>
+    <div class="location-box">
+      <span class="loc-title">📍 UBICACIÓN EXACTA</span>
+      <span class="loc-detail">Sector 12 · Manzana 13 · Lotes 04 y 05</span>
+      <span class="loc-sub">Disponibilidad de 2 lotes contiguos</span>
+    </div>
 
     <div class="scenarios">
       <button class="btn-scen active" onclick="update(0)">PARA FUTURO</button>
@@ -125,55 +107,49 @@
     </div>
 
     <div class="price-display">
-      <div class="main-price"><span id="scen-title">VALOR PROPIEDAD</span>$16.500.000</div>
+      <div class="main-price"><span id="scen-title">INVERSIÓN POR LOTE</span>$16.500.000</div>
     </div>
 
     <div class="details-box">
       <div class="line"><span>Gastos de Traspaso</span> <span id="val-traspaso">$2.150.000</span></div>
       <div class="line"><span>Derecho de Parque</span> <span id="val-parque">$0</span></div>
       <div class="line"><span>Servicios Inhumación</span> <span id="val-serv">$0</span></div>
-      <div class="total-line"><span>INVERSIÓN FINAL</span> <span id="val-total">$18.650.000</span></div>
+      <div class="total-line"><span>TOTAL ESTIMADO</span> <span id="val-total">$18.650.000</span></div>
     </div>
 
     <a href="#" id="wa-link" class="btn-wa" target="_blank">Consultar Disponibilidad</a>
     
-    <div class="contact-footer">
-      Asesoría Profesional:<br>
-      <strong style="color: var(--gold); font-size: 15px;">Jose Jimy Guluma C.</strong>
+    <div class="legal-disclaimer">
+      Valores proyectados para el año <strong>2026</strong>.<br>
+      • Ubicación en terreno plano y sector preferencial.<br>
+      • Incluye <strong>Matrícula Inmobiliaria</strong> independiente.<br>
+      • Títulos de propiedad al día y listos para traspaso.
     </div>
 
-    <div class="legal-disclaimer">
-      Valores proyectados según tarifas oficiales para el año <strong>2026</strong>.<br>
-      • Sujetos a ajustes administrativos del parque al momento del trámite.<br>
-      • Propiedad con <strong>Matrícula Inmobiliaria</strong> y títulos al día.
+    <div class="footer-name">
+      Asesoría Profesional:<br>
+      <strong style="color: var(--gold); font-size: 14px;">Jose Jimy Guluma C.</strong>
     </div>
   </div>
 </div>
 
 <script>
   const data = [
-    { title: "VALOR PROPIEDAD", traspaso: "$2.150.000", parque: "$0", serv: "$0", total: "$18.650.000", msg: "Futuro" },
+    { title: "INVERSIÓN POR LOTE", traspaso: "$2.150.000", parque: "$0", serv: "$0", total: "$18.650.000", msg: "Futuro" },
     { title: "USO INMEDIATO (1)", traspaso: "$2.150.000", parque: "$1.500.000", serv: "$2.410.000", total: "$22.560.000", msg: "Uso1" },
     { title: "USO TOTAL (2)", traspaso: "$2.150.000", parque: "$1.500.000", serv: "$4.820.000", total: "$24.970.000", msg: "UsoTotal" }
   ];
 
   function update(i) {
     document.querySelectorAll('.btn-scen').forEach((b, idx) => b.classList.toggle('active', idx === i));
-    const titleEl = document.getElementById('scen-title');
-    const totalEl = document.getElementById('val-total');
-    
-    titleEl.style.opacity = 0.5;
-    setTimeout(() => {
-      titleEl.innerText = data[i].title;
-      document.getElementById('val-traspaso').innerText = data[i].traspaso;
-      document.getElementById('val-parque').innerText = data[i].parque;
-      document.getElementById('val-serv').innerText = data[i].serv;
-      totalEl.innerText = data[i].total;
-      titleEl.style.opacity = 1;
-    }, 100);
+    document.getElementById('scen-title').innerText = data[i].title;
+    document.getElementById('val-traspaso').innerText = data[i].traspaso;
+    document.getElementById('val-parque').innerText = data[i].parque;
+    document.getElementById('val-serv').innerText = data[i].serv;
+    document.getElementById('val-total').innerText = data[i].total;
     
     const waBase = "https://wa.me/573227002789?text=";
-    const text = encodeURIComponent(`Hola Jose Jimy, deseo recibir información sobre la opción de ${data[i].msg} en el Sector 12 de Jardines de Paz. Quedo atento.`);
+    const text = encodeURIComponent(`Hola Jose Jimy, deseo información sobre el lote en Jardines de Paz Zona Norte (Sector 12, Manzana 13). Me interesa la opción de ${data[i].msg}.`);
     document.getElementById('wa-link').href = waBase + text;
   }
   update(0);
